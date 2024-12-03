@@ -1,9 +1,10 @@
 import "@/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
-
 import { TRPCReactProvider } from "@/trpc/react";
 import { ClerkProvider } from "@clerk/nextjs";
+
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "github_saas",
@@ -15,12 +16,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    // Ensure ClerkProvider wraps everything, including TRPCReactProvider
     <ClerkProvider>
       <html lang="en" className={`${GeistSans.variable}`}>
         <body>
-          {/* Wrap children with both TRPCProvider and ClerkProvider */}
           <TRPCReactProvider>{children}</TRPCReactProvider>
+          <Toaster richColors />
         </body>
       </html>
     </ClerkProvider>

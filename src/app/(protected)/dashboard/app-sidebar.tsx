@@ -7,6 +7,7 @@ import { LayoutDashboard, Bot, Presentation, CreditCard, Plus } from "lucide-rea
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
+import useProject from "@/hooks/use-project"
 
 export function AppSideBar() {
 
@@ -33,20 +34,21 @@ export function AppSideBar() {
     }
   ]
 
-  const projects = [
-    {
-      name: "Project 1"
-    },
-    {
-      name: "Project 2"
-    },
-    {
-      name: "Project 3"
-    }
-  ]
+  // const projects = [
+  //   {
+  //     name: "Project 1"
+  //   },
+  //   {
+  //     name: "Project 2"
+  //   },
+  //   {
+  //     name: "Project 3"
+  //   }
+  // ]
 
   const pathname = usePathname
   const {open} = useSidebar()
+  const { projects, projectId, setProjectId } = useProject();
 
   return (
     <Sidebar collapsible="icon" variant="floating">
@@ -94,14 +96,16 @@ export function AppSideBar() {
           </SidebarGroupLabel>
           <SidebarContent>
             <SidebarMenu>
-              {projects.map((project: any) => {
+              {projects?.map((project: any) => {
                  return (
                  <SidebarMenuItem key={project.name}>
                   <SidebarMenuButton asChild>
-                    <div>
+                    <div onClick={() => {
+                      setProjectId(project.id)
+                    }}>
                       <div className={cn(
                         'rounded-sm border size-6 flex items justify-center text-sm bg-white text-primary', {
-                          'bg-primary text-white' : true
+                          'bg-primary text-white' : project.id === projectId
                         }
                       )}>
                         {project.name[0]}
