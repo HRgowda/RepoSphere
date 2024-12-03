@@ -29,7 +29,6 @@ export const projectRouter = createTRPCRouter({
     await pollCommits(project.id)
     return project;
   }),
-
   getProjects: protectedProcedure.query(async ({ ctx}) => {
     return await ctx.db.project.findMany({
       where:{
@@ -65,6 +64,21 @@ export const projectRouter = createTRPCRouter({
         projectId: input.projectId,
         question: input.question,
         userId: ctx.user.userId!
+      }
+    })
+  }),
+  getQuestions: protectedProcedure.input(z.object({
+    projectId: z.string()
+  })).query(async ({ ctx, input}) => {
+    return await ctx.db.question.findMany({
+      where:{
+        projectId: input.projectId
+      },
+      include: {
+        user: true
+      },
+      orderBy: {
+        createdAt: 'desc'
       }
     })
   })
