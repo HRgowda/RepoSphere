@@ -2,6 +2,7 @@ import { useTheme } from "next-themes";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { z } from "zod"
 import { pollCommits } from "@/lib/github";
+import { indexGithubRepo } from "@/lib/github-loader";
 
 export const projectRouter = createTRPCRouter({
   createProject: protectedProcedure.input(
@@ -23,6 +24,8 @@ export const projectRouter = createTRPCRouter({
         }
       }
     })
+    // this indexGithubRepo will load in al the documents gets the summary, creates the embeddings abd insert it into our database
+    await indexGithubRepo(project.id, input.githubUrl, input.githubToken)
     await pollCommits(project.id)
     return project;
   }),
@@ -46,6 +49,22 @@ export const projectRouter = createTRPCRouter({
     return await ctx.db.commit.findMany({
       where:{
         projectId: input.projectId
+      }
+    })
+  }),
+  saveAnswer: protectedProcedure.input(z.object({
+    projectId: z.string(),
+    question: z.string(),
+    answer: z.string(),
+    filesReferences: z.any()
+  })).mutation(async ({ ctx, input }) => {
+    return await ctx.db.question.create({
+      data: {
+        answer: input.answer,
+        filesReferences: input.filesReferences,
+        projectId: input.projectId,
+        question: input.question,
+        userId: ctx.user.userId!
       }
     })
   })
