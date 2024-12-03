@@ -1,7 +1,7 @@
 import { SidebarProvider } from '@/components/ui/sidebar'
 import React from 'react'
 import { UserButton } from '@clerk/nextjs'
-import { AppSideBar } from './dashboard/app-sidebar'
+import { AppSideBar } from './app-sidebar'
 
 type Props = {
   children: React.ReactNode
