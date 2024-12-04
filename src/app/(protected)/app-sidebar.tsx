@@ -21,11 +21,6 @@ export function AppSideBar() {
       title: "Q&A",
       url: '/qa',
       icon: Bot
-    },
-    {
-      title: "Billing",
-      url: '/billing',
-      icon: CreditCard
     }
   ]
 
