@@ -92,7 +92,7 @@ const AskQuestionCard = () => {
         </DialogContent>
       </Dialog>
 
-      <Card>
+      <Card className='p-3'>
         <CardHeader>
           <CardTitle>Ask a question</CardTitle>
         </CardHeader>

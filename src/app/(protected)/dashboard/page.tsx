@@ -6,6 +6,7 @@ import React from 'react'
 import Link from "next/link"
 import CommitLog from './commit-log'
 import AskQuestionCard from './ask-question-card'
+import MeetingCard from './meeting-card'
 
 const Dashboard = () => {
   const {user} = useUser()
@@ -35,20 +36,18 @@ const Dashboard = () => {
 
         <div className="h-4"></div>
 
-        <div className='flex items-center gap-4'>
-          TeamMember
-          InviteButton
-          ArchiveButton
-
-        </div>
-
       </div>
+
       <div className="mt-4">
 
-        <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+      <div className="grid grid-cols-1 gap-4">
+        <div className="col-span-3">
           <AskQuestionCard />
-          MeetingCard
         </div>
+        {/* <div className="col-span-2">
+          <MeetingCard />
+        </div> */}
+      </div>
       </div>
 
       <div className="mt-8"></div>

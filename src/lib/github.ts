@@ -10,7 +10,7 @@ export const octokit = new Octokit({
  
 }) 
 
-const githubUrl = 'https://github.com/HRgowda/Password_Generator'
+// const githubUrl = 'https://github.com/HRgowda/Password_Generator'
 
 type Response = {
     commitMessage: string;
