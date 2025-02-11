@@ -19,7 +19,7 @@ export const aiSummariseCommit = async (diff: string) => {
 export async function summariseCode(doc: Document) { 
   console.log("Getting summary for", doc.metadata.source);
   try{
-    const code = doc.pageContent.slice(0, 10000); // limiting to 10000 characters
+    const code = doc.pageContent.slice(0, 100000); // limiting to 100000 characters
 
     const response = await model.generateContent([
       `You are an intelligent senior software enginerr who specialises in onboarding junior software engineers onto projets`,
@@ -28,7 +28,7 @@ export async function summariseCode(doc: Document) {
       ---
       ${code}
       ---
-      Give a summary no more then 100 words of the code above`,
+      Give a summary of the code above`,
 
     ]);
 
